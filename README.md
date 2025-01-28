@@ -107,6 +107,7 @@ This project involves performing customer segmentation using clustering techniqu
 ├── data/
 │   ├── Customers.csv
 │   ├── Transactions.csv
+│   ├── Products.csv
 ├── notebooks/
 │   ├── task1_data_cleaning.ipynb
 │   ├── task2_eda.ipynb
