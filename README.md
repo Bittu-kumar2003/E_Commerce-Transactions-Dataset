@@ -1,179 +1,121 @@
-# Customer Segmentation using Clustering Techniques
+# E_Commerce Transactions Dataset
 
-This project demonstrates the process of performing customer segmentation using clustering techniques. The segmentation leverages both customer profile information and transaction data to group customers into meaningful clusters.
+## Overview
+This project involves performing customer segmentation using clustering techniques. The tasks are split into three parts:
 
-## Project Overview
+1. **Task 1: Data Cleaning and Preprocessing**  
+   Prepare the data by cleaning and preprocessing to ensure accurate analysis.
 
-### Objective
-The primary objective of this project is to:
-1. Perform customer segmentation using clustering algorithms.
-2. Evaluate clustering performance using metrics like the Davies-Bouldin Index.
-3. Visualize the clusters and provide insights.
+2. **Task 2: Exploratory Data Analysis (EDA)**  
+   Perform detailed exploratory analysis to understand patterns and trends in the dataset.
 
-### Features
-- **Data Merging**: Combines data from `Customers.csv`, `Transactions.csv`, and `Products.csv` to create a unified dataset.
-- **Feature Engineering**: Aggregates transaction data and enriches it with customer demographics.
-- **Clustering**: Implements the K-Means clustering algorithm to segment customers.
-- **Evaluation**: Calculates clustering metrics such as the Davies-Bouldin Index and Silhouette Score.
-- **Visualization**: Generates scatter plots to visualize customer segments.
+3. **Task 3: Customer Segmentation / Clustering**  
+   Perform customer segmentation using clustering algorithms and evaluate the results.
 
 ---
 
-## Folder Structure
-```
-project-folder/
-├── Customers.csv          # Customer profile data
-├── Transactions.csv       # Transactional data
-├── Products.csv           # Product data
-├── Customer_Segments.csv  # Output file with clustering results
-├── clustering_script.py   # Main Python script
-└── README.md              # Project documentation
-```
+## Task Details
+
+### Task 1: Data Cleaning and Preprocessing
+**Objective:**
+- Clean and preprocess the `Customers.csv` and `Transactions.csv` datasets to remove inconsistencies and handle missing data.
+
+**Steps:**
+1. Check for missing values and impute or remove them appropriately.
+2. Remove duplicate entries.
+3. Normalize or scale numerical columns as required.
+4. Merge datasets where applicable for further analysis.
+
+**Outputs:**
+- Cleaned datasets ready for analysis.
+- Log of any data imputation or transformations performed.
 
 ---
 
-## Dataset Requirements
+### Task 2: Exploratory Data Analysis (EDA)
+**Objective:**
+- Understand the dataset through visualizations and descriptive statistics.
 
-### Customers.csv
-| Column Name | Description           |
-|-------------|-----------------------|
-| CustomerID  | Unique ID of customer |
-| Age         | Age of customer       |
-| Region      | Region of customer    |
+**Steps:**
+1. Analyze customer demographics (age, location, etc.).
+2. Explore transaction behaviors (frequency, quantity, total spend, etc.).
+3. Visualize key trends using plots (e.g., histograms, scatter plots, bar charts).
 
-### Transactions.csv
-| Column Name | Description           |
-|-------------|-----------------------|
-| CustomerID  | Unique ID of customer |
-| ProductID   | Unique ID of product  |
-| Quantity    | Quantity purchased    |
-| TotalValue  | Total value of purchase |
+**Outputs:**
+- Insights into customer behavior and purchasing trends.
+- Visualizations showcasing patterns in the data.
+- Summary report of key findings.
 
-### Products.csv
-| Column Name | Description           |
-|-------------|-----------------------|
-| ProductID   | Unique ID of product  |
+---
+
+### Task 3: Customer Segmentation / Clustering
+**Objective:**
+- Perform clustering on the customers using profile and transaction data.
+
+**Steps:**
+1. Merge `Customers.csv` and `Transactions.csv` to create a unified dataset.
+2. Perform feature engineering (e.g., total spend, average transaction value).
+3. Select a clustering algorithm (e.g., K-Means, DBSCAN, or Agglomerative Clustering).
+4. Determine the optimal number of clusters using metrics like the Elbow Method or Silhouette Score.
+5. Calculate the Davies-Bouldin Index (DB Index) to evaluate clustering performance.
+6. Visualize clusters using relevant plots.
+
+**Outputs:**
+- Number of clusters formed.
+- DB Index value and other evaluation metrics.
+- Cluster visualizations.
+- Final report on clustering results.
 
 ---
 
 ## Installation
-
-### Prerequisites
-Ensure you have the following installed:
-- Python 3.7+
-- Required Python libraries: `pandas`, `numpy`, `scikit-learn`, `matplotlib`, `seaborn`
-
-### Install Dependencies
-Run the following command to install all dependencies:
-```bash
-pip install -r requirements.txt
-```
-Create a `requirements.txt` file if needed:
-```
-pandas
-numpy
-scikit-learn
-matplotlib
-seaborn
-```
+1. Clone the repository:
+   ```bash
+   git clone <repository-link>
+   ```
 
 ---
 
 ## Usage
+1. Place the datasets (`Customers.csv` and `Transactions.csv`) in the `data/` folder.
+2. Run the Jupyter Notebook or Python scripts for each task sequentially.
 
-### Step 1: Prepare Data
-Place the `Customers.csv`, `Transactions.csv`, and `Products.csv` files in the same directory as the script.
+   Example for Task 1:
+   ```bash
+   python task1_data_cleaning.py
+   ```
 
-### Step 2: Run the Script
-Execute the script using:
-```bash
-python clustering_script.py
-```
-
-### Step 3: Output
-1. **Clustering Results**: A `Customer_Segments.csv` file containing customer IDs, features, and their assigned cluster.
-2. **Clustering Metrics**: Displays the Davies-Bouldin Index and Silhouette Score in the console.
-3. **Visualizations**: A scatter plot showing customer clusters.
-
----
-
-## Key Sections in Code
-
-### 1. Importing Libraries
-```python
-import pandas as pd
-import numpy as np
-from sklearn.preprocessing import StandardScaler
-from sklearn.cluster import KMeans
-from sklearn.metrics import davies_bouldin_score, silhouette_score
-import matplotlib.pyplot as plt
-import seaborn as sns
-```
-
-### 2. Data Validation
-Ensures required columns are present in the input datasets:
-```python
-def check_missing_columns(df, required_columns, file_name):
-    missing_columns = required_columns - set(df.columns)
-    if missing_columns:
-        raise KeyError(f"{file_name} is missing required columns: {missing_columns}")
-```
-
-### 3. Clustering Logic
-Implements K-Means clustering and evaluates the model:
-```python
-kmeans = KMeans(n_clusters=n_clusters, random_state=42, n_init=10)
-customer_features['Cluster'] = kmeans.fit_predict(scaled_features)
-
-# Evaluation
-db_index = davies_bouldin_score(scaled_features, customer_features['Cluster'])
-silhouette_avg = silhouette_score(scaled_features, customer_features['Cluster'])
-```
-
-### 4. Visualization
-Generates a scatter plot of customer clusters:
-```python
-sns.scatterplot(
-    x=scaled_features[:, 0],
-    y=scaled_features[:, 1],
-    hue=customer_features['Cluster'],
-    palette='viridis',
-    legend='full'
-)
-```
-
----
-
-## Outputs
-1. **Customer_Segments.csv**:
-   Contains the following columns:
-   - `CustomerID`
-   - Aggregated features (e.g., `Quantity`, `TotalValue`)
-   - Customer demographics (e.g., `Age`, `Region`)
-   - Cluster assignment
-
-2. **Clustering Metrics**:
-   - Davies-Bouldin Index
-   - Silhouette Score
-
-3. **Cluster Visualization**:
-   - Scatter plot of customer clusters.
+3. View outputs in the `outputs/` folder.
 
 ---
 
 ## Evaluation Metrics
-1. **Davies-Bouldin Index**:
-   - A lower value indicates better clustering.
-2. **Silhouette Score**:
-   - Measures how similar an object is to its cluster compared to other clusters.
+- **Davies-Bouldin Index (DB Index):** Measures the quality of clustering; lower values indicate better-defined clusters.
+- **Silhouette Score:** Evaluates how similar an object is to its own cluster compared to other clusters.
 
 ---
 
-## Contribution
-Feel free to fork the repository, create a branch, and submit a pull request. For major changes, open an issue first to discuss your ideas.
+## Results
+- Task 1: Cleaned and preprocessed datasets.
+- Task 2: Insights and visualizations of customer behaviors.
+- Task 3: Clustering results with evaluation metrics and visualizations.
 
 ---
 
-## License
-This project is licensed under the MIT License. See the LICENSE file for details.
+## Project Structure
+```
+├── data/
+│   ├── Customers.csv
+│   ├── Transactions.csv
+├── notebooks/
+│   ├── task1_data_cleaning.ipynb
+│   ├── task2_eda.ipynb
+│   ├── task3_clustering.ipynb
+├── outputs/
+│   ├── cleaned_data.csv
+│   ├── eda_visualizations/
+│   ├── clustering_results/
+├── requirements.txt
+├── README.md
+```
 
